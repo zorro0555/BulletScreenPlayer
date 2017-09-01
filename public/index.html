@@ -27,6 +27,9 @@
   </div>
   <ul class="pages">
     <li class="chat page">
+      <div class="videoArea">
+        <div id="player"></div>
+      </div>
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
@@ -46,12 +49,44 @@
   <script type="text/javascript" src="lib/damoo.min.js"></script>
   <script type="text/javascript">
     var scrn = window.document.getElementById('dm-screen');
-    scrn.style.width = window.innerWidth + "px";
-    scrn.style.height = window.innerHeight + "px";
+    scrn.style.width = window.innerWidth - 20 + "px";
+    scrn.style.height = window.innerHeight - 20 + "px";
     scrn.style.opacity = 1;
     var damoo = Damoo('dm-screen', 'dm-canvas', 20, "Arial");
     damoo.start();
-    damoo.emit({ text: "Welcome", color: "#" + Math.random().toString(16).substring(2).substring(0, 6) });
+    // damoo.emit({ text: "Welcome", color: "#" + Math.random().toString(16).substring(2).substring(0, 6) });
+  </script>
+  <script>
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: 'pMzB8nn4xtw',
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+    }
+
+    function onPlayerStateChange(event) {
+      if (YT.PlayerState.ENDED === 0) {
+        event.target.playVideo();
+      }
+    }
   </script>
 </body>
 

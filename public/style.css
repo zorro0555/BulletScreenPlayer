@@ -89,7 +89,7 @@ ul {
 /* Chat page */
 
 .chat.page {
-  display: none;
+  display: flex;
 }
 
 /* Font */
@@ -112,8 +112,13 @@ ul {
 /* Messages */
 
 .chatArea {
-  height: 100%;
+  flex: 2;
   padding-bottom: 60px;
+}
+
+
+.videoArea {
+  flex: 8;
 }
 
 .messages {
@@ -147,3 +152,4 @@ ul {
   right: 0;
   width: 100%;
 }
+

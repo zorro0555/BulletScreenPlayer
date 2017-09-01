@@ -9,7 +9,6 @@ var port = process.env.PORT || 3002;
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
-console.log(path.join(__dirname, 'public'))
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,11 +47,11 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function () {
-    socket.broadcast.emit('typing', {
-      username: socket.username
-    });
-  });
+  // socket.on('typing', function () {
+  //   socket.broadcast.emit('typing', {
+  //     username: socket.username
+  //   });
+  // });
 
   // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function () {
