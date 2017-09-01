@@ -229,6 +229,7 @@ $(function () {
 
   // Whenever the server emits 'login', log the login message
   socket.on('login', function (data) {
+    createDmScreen();
     connected = true;
     // Display the welcome message
     var message = "Welcome to this Chat – ";
@@ -236,7 +237,7 @@ $(function () {
       prepend: true
     });
     addParticipantsMessage(data);
-    createDmScreen();
+
     player.playVideo();
   });
 
