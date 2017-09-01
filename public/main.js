@@ -236,6 +236,7 @@ $(function () {
       prepend: true
     });
     addParticipantsMessage(data);
+    createDmScreen();
     player.playVideo();
   });
 
