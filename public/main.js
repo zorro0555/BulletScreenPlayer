@@ -17,6 +17,8 @@ $(function () {
   var $referenceAccount = $("#referenceAccount");
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
+  var $actionMessage = $('.inputAction'); // 
+  var $givePoints = $('.inputPoints'); // 
 
   var $registerPage = $('.register.page'); // The register page  
   var $loginPage = $('.login.page'); // The login page
@@ -25,6 +27,7 @@ $(function () {
   var $submit = $("#submit");
   var $registerSubmit = $("#registerSubmit");
   var $showRegister = $("#showRegister");
+  var $actionSubmit = $("#actionSubmit");
 
   // Prompt for setting a username
   var username;
@@ -113,6 +116,21 @@ $(function () {
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
+      socket.emit('new message', message);
+    }
+  }
+
+  function sendActionMessage() {
+    var ActionMessage = $actionMessage.val();
+    var givePoints = $givePoints.val();
+    message = cleanInput(ActionMessage);
+    if (message && givePoints && connected) {
+      $actionMessage.val("");
+      $givePoints.val("");
+      addChatMessage({
+        username: username,
+        message: "指定完成動作 " + message + "，給" + givePoints + "點數"
+      });
       socket.emit('new message', message);
     }
   }
@@ -262,6 +280,7 @@ $(function () {
     updateTyping();
   });
 
+  // $loginPage.fadeOut();
   $chatPage.fadeOut();
   $registerPage.fadeOut();
 
@@ -283,6 +302,10 @@ $(function () {
 
   $registerSubmit.click(function () {
     registerUser();
+  })
+
+  $actionSubmit.click(function () {
+    sendActionMessage();
   })
 
   // Focus input when clicking on the message input's border

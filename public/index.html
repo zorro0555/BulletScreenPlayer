@@ -26,7 +26,6 @@
         <input id="referenceAccount" type="text" maxlength="14">
       </div>
       <button id="registerSubmit" type="button" class="btn btn-outline-primary" style="margin-top: 50px">註冊</button>
-
     </li>
     <li class="chat page">
       <div class="videoArea">
@@ -35,7 +34,14 @@
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
-      <input class="inputMessage" placeholder="Type here..." />
+      <div class="msgbox">
+        <input class="inputMessage" placeholder="Type here..." />
+        <span>指定動作：</span>
+        <input class="inputAction" placeholder="Type here..." />
+        <span>贈點：</span>
+        <input class="inputPoints" placeholder="points" />
+        <button id="actionSubmit" type="button" class="btn btn-outline-primary" style="margin-top: -8px">送出</button>
+      </div>
     </li>
     <li class="login page">
       <div class="banner">
@@ -64,8 +70,8 @@
   <script type="text/javascript">
     function createDmScreen() {
       var scrn = window.document.getElementById('dm-screen');
-      scrn.style.width = window.innerWidth - 20 + "px";
-      scrn.style.height = window.innerHeight - 70 + "px";
+      scrn.style.width = window.innerWidth * .8 + "px";
+      scrn.style.height = window.innerHeight * .85 + "px";
       scrn.style.opacity = 1;
       window.damoo = Damoo('dm-screen', 'dm-canvas', 20, "Arial");
       damoo.start();
@@ -99,7 +105,7 @@
 
     function onPlayerStateChange(event) {
       if (YT.PlayerState.ENDED === 0) {
-        // event.target.playVideo();
+        event.target.playVideo();
       }
     }
   </script>
