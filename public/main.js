@@ -9,15 +9,26 @@ $(function () {
 
   // Initialize variables
   var $window = $(window);
-  var $usernameInput = $('.usernameInput'); // Input for username
+  var $usernameInput = $('#account'); // Input for Account
+  var $userPasswordInput = $('#password'); // Input for Account
+  var $registerAccount = $("#registerAccount");
+  var $registerPassword = $("#registerPassword");
+  var $checkoutPassword = $("#checkoutPassword");
+  var $referenceAccount = $("#referenceAccount");
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
+  var $registerPage = $('.register.page'); // The register page  
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
 
+  var $submit = $("#submit");
+  var $registerSubmit = $("#registerSubmit");
+  var $showRegister = $("#showRegister");
+
   // Prompt for setting a username
   var username;
+  var success;
   var connected = false;
   var typing = false;
   var lastTypingTime;
@@ -35,19 +46,57 @@ $(function () {
     log(message);
   }
 
+  // register User
+
+  function registerUser() {
+    var username = cleanInput($registerAccount.val().trim());
+    var userPassword = cleanInput($registerPassword.val().trim());
+    var checkoutPassword = cleanInput($checkoutPassword.val().trim());
+    var referenceAccount = cleanInput($referenceAccount.val().trim());
+    if (username.length < 6) {
+      alert("帳號過短")
+    }
+    if (userPassword.length < 8) {
+      alert("密碼過短")
+    }
+    if (username && userPassword && userPassword === checkoutPassword) {
+      $.ajax({
+        method: "POST",
+        url: "http://52.229.170.236/api/register",
+        data: { username: username, password: userPassword }
+      }).done(function (msg) {
+        $registerPage.fadeOut();
+        $loginPage.fadeIn();
+      }).fail(function (msg) {
+        alert("register fail")
+      });
+    } else {
+      alert("請確認密碼相同")
+    }
+  }
+
   // Sets the client's username
   function setUsername() {
     username = cleanInput($usernameInput.val().trim());
+    userPassword = cleanInput($userPasswordInput.val().trim());
 
     // If the username is valid
-    if (username) {
-      $loginPage.fadeOut();
-      $chatPage.show();
-      $loginPage.off('click');
-      $currentInput = $inputMessage.focus();
-
-      // Tell the server your username
-      socket.emit('add user', username);
+    if (username && userPassword) {
+      $.ajax({
+        method: "POST",
+        url: "http://52.229.170.236/api/login",
+        data: { username: username, password: userPassword }
+      }).done(function (msg) {
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+        // Tell the server your username
+        socket.emit('add user', username);
+        success = true;
+      }).fail(function (msg) {
+        alert("login fail")
+      });
     }
   }
 
@@ -195,11 +244,11 @@ $(function () {
   $window.keydown(function (event) {
     // Auto-focus the current input when a key is typed
     if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-      $currentInput.focus();
+      // $currentInput.focus();
     }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-      if (username) {
+      if (success) {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
@@ -209,6 +258,19 @@ $(function () {
     }
   });
 
+  $submit.click(function () {
+    setUsername();
+  })
+
+  $showRegister.click(function () {
+    $registerPage.fadeIn();
+    $loginPage.fadeOut();
+  })
+
+  $registerSubmit.click(function () {
+    registerUser();
+  })
+
   $inputMessage.on('input', function () {
     updateTyping();
   });
@@ -216,9 +278,9 @@ $(function () {
   // Click events
 
   // Focus input when clicking anywhere on login page
-  $loginPage.click(function () {
-    $currentInput.focus();
-  });
+  // $loginPage.click(function () {
+  //   $currentInput.focus();
+  // });
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {

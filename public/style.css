@@ -33,6 +33,17 @@ ul {
 
 /* Pages */
 
+#dm-main {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: 22px Menlo, monospace;
+}
+
+#dm-screen {
+  color: #888;
+}
+
 .pages {
   height: 100%;
   margin: 0;
@@ -46,23 +57,62 @@ ul {
   width: 100%;
 }
 
+
+/* Register Page */
+.register.page {
+  background-color: #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
+}
+
+.register.page .form {
+  margin: 50px;
+}
+
+.register.page .form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+  font-size: 200%;
+  letter-spacing: 3px;
+  color: #fff;
+  font-weight: 100;
+}
+
+.register.page .title {
+  font-size: 200%;
+  color: #fff;
+  font-weight: 100;
+}
+
+.register.page h1 {
+  color: #fff;
+}
+
 /* Login Page */
+
+.banner {
+
+}
 
 .login.page {
   background-color: #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
 }
 
 .login.page .form {
-  height: 100px;
-  margin-top: -100px;
-  position: absolute;
-
-  text-align: center;
-  top: 50%;
-  width: 100%;
 }
 
-.login.page .form .usernameInput {
+.login.page .form .userInput {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -76,12 +126,12 @@ ul {
   font-size: 200%;
 }
 
-.login.page .usernameInput {
+.login.page .userInput {
   font-size: 200%;
   letter-spacing: 3px;
 }
 
-.login.page .title, .login.page .usernameInput {
+.login.page .title, .login.page .userInput {
   color: #fff;
   font-weight: 100;
 }
@@ -90,6 +140,7 @@ ul {
 
 .chat.page {
   display: flex;
+  z-index: -1;
 }
 
 /* Font */
@@ -114,6 +165,7 @@ ul {
 .chatArea {
   flex: 2;
   padding-bottom: 60px;
+  max-width: 20%;
 }
 
 

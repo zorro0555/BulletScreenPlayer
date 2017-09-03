@@ -1,24 +1,11 @@
-<!doctype html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
   <meta charset="UTF-8">
-  <title>Socket.IO Chat Example</title>
+  <title>Damoo Video</title>
   <link rel="stylesheet" href="style.css">
-  <style type="text/css">
-    html,
-    body,
-    #dm-main {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font: 22px Menlo, monospace;
-    }
-
-    #dm-screen {
-      color: #888;
-    }
-  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
 </head>
 
 <body>
@@ -26,6 +13,21 @@
     <div id="dm-screen"></div>
   </div>
   <ul class="pages">
+    <li class="register page">
+      <h1>註冊</h1>
+      <div class="form">
+        <h3 class="title">電話</h3>
+        <input id="registerAccount" type="text" maxlength="14">
+        <h3 class="title">密碼</h3>
+        <input id="registerPassword" type="text" minlength="8" maxlength="14">
+        <h3 class="title">密碼確認</h3>
+        <input id="checkoutPassword" type="text" minlength="8" maxlength="14">
+        <h3 class="title">推薦人帳號</h3>
+        <input id="referenceAccount" type="text" maxlength="14">
+      </div>
+      <button id="registerSubmit" type="button" class="btn btn-outline-primary" style="margin-top: 50px">註冊</button>
+
+    </li>
     <li class="chat page">
       <div class="videoArea">
         <div id="player"></div>
@@ -36,9 +38,21 @@
       <input class="inputMessage" placeholder="Type here..." />
     </li>
     <li class="login page">
+      <div class="banner">
+        <img src="http://cdn.wallpapersafari.com/15/73/rXjRxL.jpg" alt="Banner" style="width:800px;height:600px">
+      </div>
+      <br>
       <div class="form">
-        <h3 class="title">What's your nickname?</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
+        <div>
+          <h3 class="title">Account</h3>
+          <input id="account" class="userInput" type="text" maxlength="14" />
+          <br>
+          <h3 class="title">Password</h3>
+          <input id="password" class="userInput" type="text" minlength="8" maxlength="14" />
+        </div>
+
+        <button id="submit" type="button" class="btn btn-outline-success" style="margin-top: 50px;">登入</button>
+        <button id="showRegister" type="button" class="btn btn-outline-primary" style="margin-top: 50px;float: right;">註冊</button>
       </div>
     </li>
   </ul>
@@ -85,7 +99,7 @@
 
     function onPlayerStateChange(event) {
       if (YT.PlayerState.ENDED === 0) {
-        event.target.playVideo();
+        // event.target.playVideo();
       }
     }
   </script>
