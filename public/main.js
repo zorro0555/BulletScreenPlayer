@@ -88,7 +88,7 @@ $(function () {
         data: { username: username, password: userPassword }
       }).done(function (msg) {
         $loginPage.fadeOut();
-        $chatPage.show();
+        $chatPage.fadeIn();;
         $loginPage.off('click');
         $currentInput = $inputMessage.focus();
         // Tell the server your username
@@ -258,6 +258,20 @@ $(function () {
     }
   });
 
+  $inputMessage.on('input', function () {
+    updateTyping();
+  });
+
+  $chatPage.fadeOut();
+  $registerPage.fadeOut();
+
+  // Click events
+
+  // Focus input when clicking anywhere on login page
+  // $loginPage.click(function () {
+  //   $currentInput.focus();
+  // });
+
   $submit.click(function () {
     setUsername();
   })
@@ -270,17 +284,6 @@ $(function () {
   $registerSubmit.click(function () {
     registerUser();
   })
-
-  $inputMessage.on('input', function () {
-    updateTyping();
-  });
-
-  // Click events
-
-  // Focus input when clicking anywhere on login page
-  // $loginPage.click(function () {
-  //   $currentInput.focus();
-  // });
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {
