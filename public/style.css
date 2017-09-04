@@ -219,7 +219,7 @@ button {
   height: 60px;
   outline: none;
   padding-left: 10px;
-  width: 60%;
+  width: 40%;
 }
 
 .inputPoints {
@@ -227,5 +227,5 @@ button {
   height: 60px;
   outline: none;
   padding-left: 10px;
-  width: 20%;
+  width: 10%;
 }

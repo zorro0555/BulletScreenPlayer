@@ -325,7 +325,7 @@ $(function () {
       prepend: true
     });
     addParticipantsMessage(data);
-
+    $("#dm-main").one("click", function () { player.playVideo() });
     player.playVideo();
   });
 
