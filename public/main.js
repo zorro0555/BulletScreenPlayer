@@ -310,7 +310,7 @@ $(function () {
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {
-    $inputMessage.focus();
+    // $inputMessage.focus();
   });
 
   // Socket events
