@@ -42,9 +42,9 @@ $(function () {
   function addParticipantsMessage(data) {
     var message = '';
     if (data.numUsers === 1) {
-      message += "there's 1 participant";
+      message += "目前有 1 人一同觀賞";
     } else {
-      message += "there are " + data.numUsers + " participants";
+      message += "目前有 " + data.numUsers + " 人一同觀賞";
     }
     log(message);
   }
@@ -320,7 +320,7 @@ $(function () {
     createDmScreen();
     connected = true;
     // Display the welcome message
-    var message = "Welcome to this Chat – ";
+    var message = "歡迎來到此秀場 – ";
     log(message, {
       prepend: true
     });
@@ -336,13 +336,13 @@ $(function () {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
-    log(data.username + ' joined');
+    log(data.username + ' 加入了秀場');
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
-    log(data.username + ' left');
+    log(data.username + ' 離開了秀場');
     addParticipantsMessage(data);
     removeChatTyping(data);
   });
