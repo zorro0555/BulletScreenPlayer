@@ -143,6 +143,44 @@ button {
   font-weight: 100;
 }
 
+/* nickname page*/
+
+.nickname.page {
+  background-color: #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
+  z-index: 99;
+}
+
+.nickname.page .form {
+}
+
+.nickname.page .form .userInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.nickname.page .title {
+  font-size: 200%;
+}
+
+.nickname.page .userInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.nickname.page .title, .nickname.page .userInput {
+  color: #fff;
+  font-weight: 100;
+}
+
 /* Chat page */
 
 .chat.page {
