@@ -23,7 +23,6 @@ $(function () {
 
   var $registerPage = $('.register.page'); // The register page  
   var $loginPage = $('.login.page'); // The login page
-  var $nicknamePage = $(".nickname.page") // The nickname page
   var $chatPage = $('.chat.page'); // The chatroom page
 
   var $submit = $("#submit");
@@ -34,7 +33,6 @@ $(function () {
   // Prompt for setting a username
   var username;
   var nickname;
-  var login;
   var success;
   var connected = false;
   var typing = false;
@@ -57,6 +55,7 @@ $(function () {
 
   function registerUser() {
     var username = cleanInput($registerAccount.val().trim());
+    var nickname = cleanInput($nicknameInput.val().trim());
     var userPassword = cleanInput($registerPassword.val().trim());
     var checkoutPassword = cleanInput($checkoutPassword.val().trim());
     var referenceAccount = cleanInput($referenceAccount.val().trim());
@@ -70,7 +69,7 @@ $(function () {
       $.ajax({
         method: "POST",
         url: "http://52.229.170.236/api/register",
-        data: { username: username, password: userPassword }
+        data: { username: username, password: userPassword, nickname: nickname }
       }).done(function (msg) {
         $registerPage.fadeOut();
         $loginPage.fadeIn();
@@ -95,23 +94,17 @@ $(function () {
         data: { username: username, password: userPassword }
       }).done(function (msg) {
         $loginPage.fadeOut();
-        $nicknamePage.fadeIn();
         $loginPage.off('click');
+        $chatPage.fadeIn();
+        nickname = msg.nickname;
+        socket.emit('add user', nickname);
         // $currentInput = $inputMessage.focus();
         // Tell the server your username
-        login = true
+        success = true
       }).fail(function (msg) {
         alert("login fail")
       });
     }
-  }
-
-  function setNickname() {
-    nickname = cleanInput($nicknameInput.val().trim());
-    socket.emit('add user', nickname);
-    success = true;
-    $nicknamePage.fadeOut();
-    $chatPage.fadeIn();
   }
 
   // Sends a chat message
@@ -281,8 +274,6 @@ $(function () {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
-      } else if (login) {
-        setNickname();
       } else {
         setUsername();
       }
@@ -296,7 +287,6 @@ $(function () {
   // $loginPage.fadeOut();
   $chatPage.fadeOut();
   $registerPage.fadeOut();
-  $nicknamePage.fadeOut();
 
   // Click events
 
